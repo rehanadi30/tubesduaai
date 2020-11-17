@@ -38,9 +38,14 @@ def MinesweeperMapAndBomb(size, bom):
                 papan[y+1][x] += 1 # bottom center
     return papan
 
-def renderNonGui(size):
+def papanUser(size):
     papanVisible = [['-' for row in range(size)] for column in range(size)]
     return papanVisible
+
+def renderNonGui(map):
+    for row in map:
+        print(" ".join(str(cell) for cell in row))
+        print("")
 
 def isWon(papan):
     for row in papan:
@@ -49,8 +54,48 @@ def isWon(papan):
                 return False
     return True
 
+def gameStatus(score):
+    print("Skor kamu adalah: " + str(score))
+    isContinue = input("Coba lagi? (y/n) : ")
+    if (isContinue == 'n'):
+        return False
+    return True
+
 def main():
-    print("Ini minesweeper")
+    GameStatus = True
+    while GameStatus:
+        ukuranPapan = -1
+        jumlahBom = 1000
+        while (jumlahBom > (ukuranPapan*ukuranPapan)):
+            print("Masuk ke ukuran dan bom")
+            ukuranPapan = int(input("Masukkan ukuran papan yang kamu inginkan (panjang sisinya saja): "))
+            jumlahBom = int(input("Masukkan jumlah Bom yang kamu inginkan: "))
+        papan = MinesweeperMapAndBomb(ukuranPapan, jumlahBom)
+        papanVisible = papanUser(ukuranPapan)
+        skor = 0
+
+        while True:
+            if isWon(papanVisible) == False:
+                print("Mau buka kotak yang mana?")
+                x = int(input("X (1-5) : ")) -1
+                y = int(input("Y (1-5) : ")) -1
+
+                if (papan[y][x] == 'X'):
+                    print("DUARRRR!!!")
+                    renderNonGui(papan)
+                    GameStatus = gameStatus(skor)
+                    break
+                else:
+                    papanVisible[y][x] = papan[y][x]
+                    renderNonGui(papanVisible)
+                    skor += 1
+            else:
+                renderNonGui(papanVisible)
+                print("Hore menang!!")
+                GameStatus = gameStatus(skor)
+                break
+                
+
 
 if __name__ == '__main__':
     try:
