@@ -44,8 +44,7 @@ def papanUser(size):
 
 def renderNonGui(map):
     for row in map:
-        print(" ".join(str(cell) for cell in row))
-        print("")
+        print(" ".join(str(cell) for cell in row) + "\n")
 
 def isWon(papan):
     for row in papan:
@@ -102,3 +101,11 @@ if __name__ == '__main__':
         main()
     except KeyboardInterrupt:
         print("Game Over")
+
+"""
+TO DO LISTS:
+1. GUI!!
+2. Handle jika kotak sudah terisi bom, tidak bisa diisi bom lagi. Sekarang hampir jumlah bom tidak pernah sama dengan masukan karena ada yang redundan
+3. Jika suatu kotak terpilih bernilai 0 dan sekitarnya juga, buka semua kotak tersebut
+
+"""
