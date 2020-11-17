@@ -2,7 +2,7 @@
 #import pygame (Buat GUI)
 import random as acak
 
-def MinesweeperMapAndBomb(size, bom):
+def papanMinesweeper(size, bom):
     papan = [[0 for row in range(size)] for column in range(size)]
 
     for num in range(bom):
@@ -70,7 +70,7 @@ def main():
             print("Masuk ke ukuran dan bom")
             ukuranPapan = int(input("Masukkan ukuran papan yang kamu inginkan (panjang sisinya saja): "))
             jumlahBom = int(input("Masukkan jumlah Bom yang kamu inginkan: "))
-        papan = MinesweeperMapAndBomb(ukuranPapan, jumlahBom)
+        papanReal = papanMinesweeper(ukuranPapan, jumlahBom)
         papanVisible = papanUser(ukuranPapan)
         skor = 0
 
@@ -80,13 +80,13 @@ def main():
                 x = int(input("X (1-5) : ")) -1
                 y = int(input("Y (1-5) : ")) -1
 
-                if (papan[y][x] == 'X'):
+                if (papanReal[y][x] == 'X'):
                     print("DUARRRR!!!")
-                    renderNonGui(papan)
+                    renderNonGui(papanReal)
                     GameStatus = gameStatus(skor)
                     break
                 else:
-                    papanVisible[y][x] = papan[y][x]
+                    papanVisible[y][x] = papanReal[y][x]
                     renderNonGui(papanVisible)
                     skor += 1
             else:
