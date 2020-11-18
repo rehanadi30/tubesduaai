@@ -8,6 +8,9 @@ def papanMinesweeper(size, bom):
     for num in range(bom):
         x = acak.randint(0, size-1)
         y = acak.randint(0, size-1)
+        while (papan[y][x] == 'X'):
+            x = acak.randint(0, size-1)
+            y = acak.randint(0, size-1)
         papan[y][x] = 'X'
     
         if (x >=0 and x <= size-2) and (y >= 0 and y <= size-1):
@@ -105,7 +108,6 @@ if __name__ == '__main__':
 """
 TO DO LISTS:
 1. GUI!!
-2. Handle jika kotak sudah terisi bom, tidak bisa diisi bom lagi. Sekarang hampir jumlah bom tidak pernah sama dengan masukan karena ada yang redundan
-3. Jika suatu kotak terpilih bernilai 0 dan sekitarnya juga, buka semua kotak tersebut
+2. Jika suatu kotak terpilih bernilai 0 dan sekitarnya juga, buka semua kotak tersebut
 
 """
