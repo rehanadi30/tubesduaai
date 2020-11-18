@@ -81,8 +81,8 @@ def main():
         while True:
             if isWon(papanVisible) == False:
                 print("Mau buka kotak yang mana?")
-                x = int(input("X (1-5) : ")) -1
-                y = int(input("Y (1-5) : ")) -1
+                x = int(input("X : "))
+                y = int(input("Y : "))
 
                 if (papanReal[y][x] == 'X'):
                     print("DUARRRR!!!")
