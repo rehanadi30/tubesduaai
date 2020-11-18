@@ -68,7 +68,7 @@ def main():
     while GameStatus:
         ukuranPapan = int(input("Masukkan ukuran papan yang kamu inginkan (panjang sisinya saja): "))
         jumlahBom = int(input("Masukkan jumlah Bom yang kamu inginkan: "))
-        while (jumlahBom > (ukuranPapan*ukuranPapan)):
+        while (jumlahBom >= (ukuranPapan*ukuranPapan)):
             print("\nJumlah bom lebih banyak dari tiles yang tersedia!\nMasukkan size papan dan jumlah bom kembali!\n")
             ukuranPapan = int(input("Masukkan ukuran papan yang kamu inginkan (panjang sisinya saja): "))
             jumlahBom = int(input("Masukkan jumlah Bom yang kamu inginkan: "))
