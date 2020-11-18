@@ -111,6 +111,5 @@ if __name__ == '__main__':
 TO DO LISTS:
 1. GUI!!
 2. Kotak masih bisa bernilai lebih dari 4
-3. Jika suatu kotak terpilih bernilai 0 dan sekitarnya juga, buka semua kotak tersebut (gak penting dan sepertinya gak perlu)
-
+3. Bom masih kegenerate random. Harusnya inputan tuple dari pengguna
 """
