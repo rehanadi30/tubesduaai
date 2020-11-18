@@ -1,4 +1,4 @@
-
+
 (deftemplate kotak
    (slot location-x
       (type NUMBER)
@@ -15,15 +15,10 @@
 )
 
 (defrule buka-kotak
-   (ingin-buka-kotak ?x ?y)
    ?lama <- (kotak (location-x ?x) (location-y ?y) (contain -1))
+   ?akanbuka <- (akan-buka-kotak ?x ?y ?value)
      =>
-   (assert (kotak (location-x ?x) (location-y ?y) (contain 2)))		;ganti dengan value sebenernya
+   (assert (kotak (location-x ?x) (location-y ?y) (contain ?value)))
    (retract ?lama)
-)
-
-(defrule mulai
-    =>
-   (assert (kotak))
-   (assert (ingin-buka-kotak 0 0))
+   (retract ?akanbuka)
 )
