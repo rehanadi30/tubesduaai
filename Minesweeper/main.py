@@ -1,5 +1,5 @@
 #Dependency
-#import pygame (Buat GUI)
+import pygame
 import random as acak
 
 def papanMinesweeper(size, bom):
@@ -9,6 +9,8 @@ def papanMinesweeper(size, bom):
         x = acak.randint(0, size-1)
         y = acak.randint(0, size-1)
         while (papan[y][x] == 'X'):
+        #Harus ada handle ketika sekelilingnya udah bernilai 4
+        #or (papan[y][x+1]==4) or (papan[y][x-1]==4) or (papan[y-1][x-1]==4) or (papan[y-1][x+1]==4) or (papan[y-1][x]==4) or (papan[y+1][x+1]==4) or (papan[y+1][x-1]==4) or (papan[y+1][x]==4)):
             x = acak.randint(0, size-1)
             y = acak.randint(0, size-1)
         papan[y][x] = 'X'
@@ -108,6 +110,7 @@ if __name__ == '__main__':
 """
 TO DO LISTS:
 1. GUI!!
-2. Jika suatu kotak terpilih bernilai 0 dan sekitarnya juga, buka semua kotak tersebut
+2. Kotak masih bisa bernilai lebih dari 4
+3. Jika suatu kotak terpilih bernilai 0 dan sekitarnya juga, buka semua kotak tersebut (gak penting dan sepertinya gak perlu)
 
 """
