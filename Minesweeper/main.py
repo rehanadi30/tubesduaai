@@ -51,6 +51,42 @@ def renderNonGui(map):
     for row in map:
         print(" ".join(str(cell) for cell in row) + "\n")
 
+def bersihkanKosong(papanUser, papanAsli, x, y, size):
+    print("Masuk Fungsi")
+    if((0 <= x < size) and (0 <= y < size)):
+        if (papanAsli[y][x+1]==0):
+            papanUser[y][x+1] = 0
+            bersihkanKosong(papanUser, papanAsli, x+1, y, size)
+        if (papanAsli[y][x-1]==0):
+            papanUser[y][x-1] = 0
+            bersihkanKosong(papanUser, papanAsli, x-1, y+1, size)
+        if (papanAsli[y-1][x-1]==0):
+            papanUser[y-1][x-1] = 0
+            bersihkanKosong(papanUser, papanAsli, x-1, y-1, size)
+
+        if (papanAsli[y-1][x+1]==0):
+            papanUser[y-1][x+1] = 0
+            bersihkanKosong(papanUser, papanAsli, x+1, y-1, size)
+        if (papanAsli[y-1][x]==0):
+            papanUser[y-1][x] = 0
+            bersihkanKosong(papanUser, papanAsli, x, y-1, size)
+
+        if (papanAsli[y+1][x+1]==0):
+            papanUser[y+1][x+1] = 0
+            bersihkanKosong(papanUser, papanAsli, x+1, y+1, size)
+        if (papanAsli[y+1][x-1]==0):
+            papanUser[y+1][x-1] = 0
+            bersihkanKosong(papanUser, papanAsli, x-1, y+1, size)
+        if (papanAsli[y+1][x]==0):
+            papanUser[y+1][x] = 0
+            bersihkanKosong(papanUser, papanAsli, x, y+1, size)
+        #BASIS  
+        else:
+            papanUser[y][x] = papanAsli[y][x]
+    else:
+        pass
+    
+
 def isWon(papan):
     for row in papan:
         for cell in row:
@@ -90,9 +126,14 @@ def main():
                     GameStatus = gameStatus(skor)
                     break
                 else:
-                    papanVisible[y][x] = papanReal[y][x]
-                    renderNonGui(papanVisible)
-                    skor += 1
+                    if (papanReal[y][x] == 0):
+                        bersihkanKosong(papanVisible, papanReal, x-1, y-1, ukuranPapan)
+                        renderNonGui(papanVisible)
+                        skor += 1
+                    else:
+                        papanVisible[y][x] = papanReal[y][x]
+                        renderNonGui(papanVisible)
+                        skor += 1
             else:
                 renderNonGui(papanVisible)
                 print("Hore menang!!")
