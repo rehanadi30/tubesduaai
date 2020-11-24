@@ -203,7 +203,18 @@ def bersihkanKosong(papanUser, papanAsli, x, y, size):
                 bersihkanKosong(papanUser, papanAsli, x, y+1, size)
         if(0 < x < size-1 and 0 < y < size-1): #Tengah-tengah
             papanUser[y][x] = papanAsli[y][x]
+            bersihkanKosong(papanUser, papanAsli, x, y+1, size) #Bawah tengah
+            bersihkanKosong(papanUser, papanAsli, x-1, y+1, size) #Bawah kiri
+            bersihkanKosong(papanUser, papanAsli, x+1, y+1, size) #Bawah kanan
+
+            bersihkanKosong(papanUser, papanAsli, x-1, y, size) #Tengah kiri
+            bersihkanKosong(papanUser, papanAsli, x+1, y, size) #Tengah kanan
+
+            bersihkanKosong(papanUser, papanAsli, x, y-1, size) #Atas tengah
+            bersihkanKosong(papanUser, papanAsli, x-1, y-1, size) #Atas kiri
+            bersihkanKosong(papanUser, papanAsli, x+1, y-1, size) #Atas kanan
             renderNonGui(papanUser)
+            
     #BASIS  
     else:
         print("Masuk Else")
