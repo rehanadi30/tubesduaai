@@ -58,6 +58,7 @@ def bersihkanKosong(papanUser, papanAsli, x, y, size):
         papanUser[y][x] = 0
         renderNonGui(papanUser)
         if (x == 0 and y == 0): #Kiri atas
+            print("Kiri atas")
             if (papanAsli[y][x+1] == 0 and papanUser[y][x+1] == '-'):
                 papanUser[y][x+1] = 0 #tengah kanan
                 renderNonGui(papanUser)
@@ -71,6 +72,7 @@ def bersihkanKosong(papanUser, papanAsli, x, y, size):
                 renderNonGui(papanUser)
                 bersihkanKosong(papanUser, papanAsli, x, y+1, size)
         if (x == size-1 and y == 0): #Kanan atas
+            print("Kanan atas")
             if (papanAsli[y][x-1]==0 and papanUser[y][x-1] == '-'):
                 papanUser[y][x-1] = 0 #tengah kiri
                 renderNonGui(papanUser)
@@ -84,6 +86,7 @@ def bersihkanKosong(papanUser, papanAsli, x, y, size):
                 renderNonGui(papanUser)
                 bersihkanKosong(papanUser, papanAsli, x, y+1, size)
         if (x == 0 and y == size-1): #Kiri bawah
+            print("Kiri bawah")
             if (papanAsli[y-1][x]==0 and papanUser[y-1][x] == '-'):
                 papanUser[y-1][x] = 0 #atas tengah
                 renderNonGui(papanUser)
@@ -92,12 +95,26 @@ def bersihkanKosong(papanUser, papanAsli, x, y, size):
                 papanUser[y-1][x+1] = 0 #atas kanan
                 renderNonGui(papanUser)
                 bersihkanKosong(papanUser, papanAsli, x+1, y-1, size)
+            if (papanAsli[y][x+1] == 0 and papanUser[y][x+1] == '-'):
+                papanUser[y][x+1] = 0 #tengah kanan
+                renderNonGui(papanUser)
+                bersihkanKosong(papanUser, papanAsli, x+1, y, size)
         if (x == size-1 and y == size-1): #Kanan bawah
+            print("Kanan bawah")
             if (papanAsli[y-1][x-1]==0 and papanUser[y-1][x-1] == '-'):
                 papanUser[y-1][x-1] = 0 #atas kiri
                 renderNonGui(papanUser)
                 bersihkanKosong(papanUser, papanAsli, x-1, y-1, size)
+            if (papanAsli[y-1][x]==0 and papanUser[y-1][x] == '-'):
+                papanUser[y-1][x] = 0 #atas tengah
+                renderNonGui(papanUser)
+                bersihkanKosong(papanUser, papanAsli, x, y-1, size)
+            if (papanAsli[y][x-1]==0 and papanUser[y][x-1] == '-'):
+                papanUser[y][x-1] = 0 #tengah kiri
+                renderNonGui(papanUser)
+                bersihkanKosong(papanUser, papanAsli, x-1, y, size)
         if(y == 0 and x != 0 and x != size-1):#Atas doang
+            print("Atas doang")
             if (papanAsli[y][x-1]==0 and papanUser[y][x-1] == '-'):
                 papanUser[y][x-1] = 0 #tengah kiri
                 renderNonGui(papanUser)
@@ -119,6 +136,7 @@ def bersihkanKosong(papanUser, papanAsli, x, y, size):
                 renderNonGui(papanUser)
                 bersihkanKosong(papanUser, papanAsli, x+1, y+1, size)
         if(y == size-1 and x != 0 and x != size-1):#Bawah doang
+            print("Bawah doang")
             if (papanAsli[y][x-1]==0 and papanUser[y][x-1] == '-'):
                 papanUser[y][x-1] = 0 #tengah kiri
                 renderNonGui(papanUser)
@@ -140,6 +158,7 @@ def bersihkanKosong(papanUser, papanAsli, x, y, size):
                 renderNonGui(papanUser)
                 bersihkanKosong(papanUser, papanAsli, x-1, y-1, size)
         if(x == 0 and y != 0 and y != size-1):#Kiri doang
+            print("Kiri doang")
             if (papanAsli[y-1][x]==0 and papanUser[y-1][x] == '-'):
                 papanUser[y-1][x] = 0 #atas tengah
                 renderNonGui(papanUser)
@@ -160,7 +179,8 @@ def bersihkanKosong(papanUser, papanAsli, x, y, size):
                 papanUser[y+1][x+1] = 0 #bawah kanan
                 renderNonGui(papanUser)
                 bersihkanKosong(papanUser, papanAsli, x+1, y+1, size)
-        if(x == size-1 and y != 0 and size != size-1):#Kanan doang
+        if(x == size-1 and y != 0 and y != size-1):#Kanan doang
+            print("Kanan doang")
             if (papanAsli[y-1][x-1]==0 and papanUser[y-1][x-1] == '-'):
                 papanUser[y-1][x-1] = 0 #atas kiri
                 renderNonGui(papanUser)
@@ -173,7 +193,7 @@ def bersihkanKosong(papanUser, papanAsli, x, y, size):
                 papanUser[y][x-1] = 0 #tengah kiri
                 renderNonGui(papanUser)
                 bersihkanKosong(papanUser, papanAsli, x-1, y, size)
-            if (papanAsli[y+1][x-1] == 0 and papanUser[y+1][x-1] == '-'):
+            if (papanAsli[y+1][x-1] ==0 and papanUser[y+1][x-1] == '-'):
                 papanUser[y+1][x-1] = 0 #bawah kiri
                 renderNonGui(papanUser)
                 bersihkanKosong(papanUser, papanAsli, x-1, y+1, size)
@@ -181,6 +201,9 @@ def bersihkanKosong(papanUser, papanAsli, x, y, size):
                 papanUser[y+1][x] = 0 #bawah tengah
                 renderNonGui(papanUser)
                 bersihkanKosong(papanUser, papanAsli, x, y+1, size)
+        if(0 < x < size-1 and 0 < y < size-1): #Tengah-tengah
+            papanUser[y][x] = papanAsli[y][x]
+            renderNonGui(papanUser)
     #BASIS  
     else:
         print("Masuk Else")
