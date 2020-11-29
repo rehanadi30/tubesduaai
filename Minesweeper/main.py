@@ -245,6 +245,10 @@ def main():
             print("\nJumlah bom lebih banyak dari tiles yang tersedia!\nMasukkan size papan dan jumlah bom kembali!\n")
             ukuranPapan = int(input("Masukkan ukuran papan yang kamu inginkan (panjang sisinya saja): "))
             jumlahBom = int(input("Masukkan jumlah Bom yang kamu inginkan: "))
+        
+        koorbom = list(tuple(map(int,input().split(', '))) for r in range(jumlahBom))
+        print(koorbom)
+        
         papanReal = papanMinesweeper(ukuranPapan, jumlahBom)
         papanVisible = papanUser(ukuranPapan)
         skor = 0
