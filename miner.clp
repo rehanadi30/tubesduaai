@@ -77,17 +77,17 @@
 )
 
 ; Testing
-;(deffacts init
-;   (kotak-flag (location-x 0) (location-y 0))
-;   (kotak-terbuka (location-x 0) (location-y 1) (contain 2))
-;   (kotak-tertutup (location-x 0) (location-y 2))
-;   (kotak-terbuka (location-x 1) (location-y 0) (contain 2))
-;   (kotak-terbuka (location-x 1) (location-y 1) (contain 4))
-;   (kotak-tertutup (location-x 1) (location-y 2))
-;   (kotak-flag (location-x 2) (location-y 0))
-;   (kotak-terbuka (location-x 2) (location-y 1) (contain 2))
-;   (kotak-tertutup (location-x 2) (location-y 2))
-;)
+(deffacts init
+   (kotak-tertutup (location-x 0) (location-y 0))
+   (kotak-terbuka (location-x 0) (location-y 1) (contain 2))
+   (kotak-tertutup (location-x 0) (location-y 2))
+   (kotak-tertutup (location-x 1) (location-y 0))
+   (kotak-terbuka (location-x 1) (location-y 1) (contain 2))
+   (kotak-tertutup (location-x 1) (location-y 2))
+   (kotak-tertutup (location-x 2) (location-y 0))
+   (kotak-tertutup (location-x 2) (location-y 1))
+   (kotak-tertutup (location-x 2) (location-y 2))
+)
 
 
 ; --- Utils ---
@@ -100,7 +100,9 @@
 
 ; Reveal all surrounding squares
 (deffunction reveal-surrounding (?x ?y)
-   (do-for-all-facts ((?s kotak-tertutup)) (and (<= (abs (- ?s:location-x ?x)) 1) (<= (abs (- ?s:location-y ?y)) 1)) (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y))))
+   (do-for-all-facts ((?s kotak-tertutup)) (and (<= (abs (- ?s:location-x ?x)) 1) (<= (abs (- ?s:location-y ?y)) 1)) 
+      (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
+   )
 )
 
 (defrule akan-flag
@@ -111,6 +113,14 @@
    (retract ?s)
    (retract ?a)
    (assert (kotak-flag (location-x ?x) (location-y ?y)))
+)
+
+(defrule akan-buka
+   (declare (salience 30))
+   (akan-buka-kotak (location-x ?x) (location-y ?y))
+   ?s <- (kotak-tertutup (location-x ?x) (location ?y))
+   =>
+   (retract ?s)
 )
 
 ; --- Trackers ---
@@ -183,6 +193,7 @@
    (bind ?loc (- ?x2 ?x1))
    (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-x (+ ?x2 1)) (<= (abs (- ?s:location-y ?y)) 1))
       (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
+      (retract ?s)
    )
 )
 
@@ -196,8 +207,8 @@
 =>
    (bind ?loc (- ?x2 ?x1))
    (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-x (- ?x2 1)) (<= (abs (- ?s:location-y ?y)) 1))
-      (printout t "Open: (" ?s:location-x "," ?s:location-y ")" crlf)
       (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
+      (retract ?s)
    )
 )
 
@@ -211,6 +222,7 @@
    (bind ?loc (- ?y2 ?y1))
    (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-y (+ ?y2 1)) (<= (abs (- ?s:location-x ?x)) 1))
       (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
+      (retract ?s)
    )
 )
 
@@ -223,8 +235,8 @@
 =>
    (bind ?loc (- ?y2 ?y1))
    (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-y (- ?y2 1)) (<= (abs (- ?s:location-x ?x)) 1))
-      (printout t "Open: (" ?s:location-x "," ?s:location-y ")" crlf)
       (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
+      (retract ?s)
    )
 )
 
@@ -240,7 +252,6 @@
    (test (and (= (- ?c1 (length$ ?f1)) 2) 
               (= (- ?c2 (length$ ?f2)) 1)))
    =>
-   ;(printout t "1-2 hl" crlf)
    (assert (akan-flag (location-x ?x3) (location-y ?y3)))
 )
 
@@ -255,7 +266,6 @@
    (test (and (= (- ?c1 (length$ ?f1)) 2) 
               (= (- ?c2 (length$ ?f2)) 1)))
    =>
-   ;(printout t "1-2 hr" crlf)
    (assert (akan-flag (location-x ?x3) (location-y ?y3)))
 )
 
@@ -269,7 +279,6 @@
    (test (and (= (- ?c1 (length$ ?f1)) 2) 
               (= (- ?c2 (length$ ?f2)) 1)))
    =>
-   (printout t "1-2 vu" crlf)
    (assert (akan-flag (location-x ?x3) (location-y ?y3)))
 )
 
@@ -284,7 +293,6 @@
    (test (and (= (- ?c1 (length$ ?f1)) 2) 
               (= (- ?c2 (length$ ?f2)) 1)))
    =>
-   ;(printout t "1-2 vd" crlf)
    (assert (akan-flag (location-x ?x3) (location-y ?y3)))
 )
 
@@ -300,7 +308,10 @@
               (= (- ?c2 (length$ ?f2)) 1)
               (= (- ?c3 (length$ ?f3)) 1)))
    =>
-   (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-x ?x1) (<= (abs (- ?s:location-y ?y)) 1)) (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y))))
+   (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-x ?x1) (<= (abs (- ?s:location-y ?y)) 1)) 
+      (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
+      (retract ?s)
+   )
 )
 
 ; Vertical 1-2-1
@@ -312,5 +323,68 @@
               (= (- ?c2 (length$ ?f2)) 1)
               (= (- ?c3 (length$ ?f3)) 1)))
    =>
-   (do-for-all-facts ((?s kotak-tertutup)) (and (<= (abs (- ?s:location-x ?x)) 1) (= ?s:location-y ?y1)) (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y))))
+   (do-for-all-facts ((?s kotak-tertutup)) (and (<= (abs (- ?s:location-x ?x)) 1) (= ?s:location-y ?y1)) 
+      (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
+      (retract ?s)
+   )
+)
+
+; --- Same number ---
+; Edge on left
+(defrule same-number-horizontal-left
+   (track-kotak (location-x ?x1) (location-y ?y) (contain ?c1))
+   (track-kotak (location-x ?x2&:(= ?x2 (+ ?x1 1))) (location-y ?y) (contain ?c2))
+
+   (not (exists (kotak-tertutup (location-x ?x3&:(= ?x3 (- ?x1 1))) (location-y ?y3&:(<= (abs (- ?y3 ?y)) 1)))))
+   (test (= ?c1 ?c2))
+=>
+   (bind ?loc (- ?x2 ?x1))
+   (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-x (+ ?x2 1)) (<= (abs (- ?s:location-y ?y)) 1))
+      (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
+      (retract ?s)
+   )
+)
+
+; Edge on right
+(defrule same-number-horizontal-right
+   (track-kotak (location-x ?x1) (location-y ?y) (contain ?c1))
+   (track-kotak (location-x ?x2&:(= ?x2 (- ?x1 1))) (location-y ?y) (contain ?c2))
+
+   (not (exists (kotak-tertutup (location-x ?x3&:(= ?x3 (+ ?x1 1))) (location-y ?y3&:(<= (abs (- ?y3 ?y)) 1)))))
+   (test (= ?c1 ?c2))
+=>
+   (bind ?loc (- ?x2 ?x1))
+   (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-x (- ?x2 1)) (<= (abs (- ?s:location-y ?y)) 1))
+      (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
+      (retract ?s)
+   )
+)
+
+; Edge above
+(defrule same-number-vertical-up
+   (track-kotak (location-x ?x) (location-y ?y1) (contain ?c1))
+   (track-kotak (location-x ?x) (location-y ?y2&:(= ?y2 (+ ?y1 1))) (contain ?c2))
+
+   (not (exists (kotak-tertutup (location-x ?x3&:(<= (abs (- ?x3 ?x)) 1)) (location-y ?y3&:(= ?y3 (- ?y1 1))))))
+   (test (= ?c1 ?c2))
+=>
+   (bind ?loc (- ?y2 ?y1))
+   (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-y (+ ?y2 1)) (<= (abs (- ?s:location-x ?x)) 1))
+      (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
+      (retract ?s)
+   )
+)
+
+; Edge below
+(defrule same-number-vertical-down
+   (track-kotak (location-x ?x) (location-y ?y1) (contain ?c1))
+   (track-kotak (location-x ?x) (location-y ?y2&:(= ?y2 (- ?y1 1))) (contain ?c2))
+   (not (exists (kotak-tertutup (location-x ?x3&:(<= (abs (- ?x3 ?x)) 1)) (location-y ?y3&:(= ?y3 (+ ?y1 1))))))
+   (test (= ?c1 ?c2))
+=>
+   (bind ?loc (- ?y2 ?y1))
+   (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-y (- ?y2 1)) (<= (abs (- ?s:location-x ?x)) 1))
+      (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
+      (retract ?s)
+   )
 )
