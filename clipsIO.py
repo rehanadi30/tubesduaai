@@ -13,7 +13,6 @@ def addKotak(x,y,val):
     + ' (retract ?lama)'
     + ' (retract ?akanbuka)'
     + ' )')
-    print(val)
     new_fact = env.find_template('kotak-tertutup').new_fact()
     new_fact['location-x'] = x
     new_fact['location-y'] = y
