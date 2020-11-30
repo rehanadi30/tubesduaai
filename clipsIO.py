@@ -1,5 +1,7 @@
 from clips import Environment
 
+env = None
+
 def addKotak(x,y,val):
     # dipanggil diawal (sebelum memanggil start)
     # di loop untuk semua komponen papan
@@ -45,14 +47,14 @@ def getKotakTerbuka(size):
             papan[i['location-x']][i['location-y']] = True
     return papan
 
+def init():
+    global env
+    env = Environment()
+    env.load('miner.clp')
 
-env = Environment()
-env.load('miner.clp')
-
-# addKotak(0,0,3)
-# bukaKotak(0,0)
 
 def start():
     env.run()
+    printAllFact()
 
-start()
+init()

@@ -2,6 +2,7 @@
 import pygame
 import random as acak
 import sys
+import clipsIO
 
 sys.setrecursionlimit(1500)
 
@@ -62,8 +63,10 @@ def renderNonGui(papan):
 
 def bersihkanKosong(papanUser, papanAsli, x, y, size):
     #print("Masuk Fungsi")
+
     if(papanAsli[y][x] == 0):
         papanUser[y][x] = papanAsli[y][x]
+        papanAsli[y][x] = -999
         if ((y >=0 and y <= size-2) and (x >= 0 and x <= size-1)):
             if (papanAsli[x][y+1] == 0):
                 bersihkanKosong(papanUser, papanAsli, x, y+1, size)
@@ -87,14 +90,25 @@ def bersihkanKosong(papanUser, papanAsli, x, y, size):
                 bersihkanKosong(papanUser, papanAsli, x+1,y-1, size)
         if ((y >= 0 and y <= size-1) and (x >= 0 and x <= size-2)):
             if (papanAsli[x+1][y] == 0):
-                bersihkanKosong(papanUser, papanAsli, x+1,y, size)       
-    
+                bersihkanKosong(papanUser, papanAsli, x+1,y, size)
+        papanAsli[y][x] = 0
+        papanUser[y][x] = 0     
 
-def isWon(papan):
-    for row in papan:
-        for cell in row:
-            if (cell == '-'): #Masih ada yang belum kebuka
-                return False
+    else:
+        #print("masuk else")
+        papanUser[y][x] = papanAsli[y][x]
+
+def isWon(papanAsli,size):
+    papan = clipsIO.getKotakTerbuka(size)
+    for row in range(size):
+        for cell in range(size):
+            isbom = papanAsli[row][cell]=='X'
+            if (not papan[row][cell]): #Masih ada yang belum kebuka
+                if (not isbom):
+                    return False
+            else:
+                if (isbom):
+                    return False
     return True
 
 def gameStatus(score):
@@ -127,10 +141,14 @@ def main():
     while GameStatus:
         papanReal = papanMinesweeper(ukuranPapan, jumlahBom, arrBomX, arrBomY)
         papanVisible = papanUser(ukuranPapan)
+        for i in range(ukuranPapan):
+            for j in range(ukuranPapan):
+                clipsIO.addKotak(i, j, papanReal[j][i])
         skor = 0
+        renderNonGui(papanReal)
 
         while True:
-            if isWon(papanVisible) == False:
+            if isWon(papanVisible, ukuranPapan) == False:
                 print("Mau buka kotak yang mana?")
                 x = int(input("X : "))
                 y = int(input("Y : "))
@@ -160,6 +178,9 @@ def main():
 if __name__ == '__main__':
     try:
         main()
+        #clipsIO.addKotak(0,0,3)
+        #clipsIO.bukaKotak(0,0)
+        #clipsIO.start()
     except KeyboardInterrupt:
         print("Game Over")
 
