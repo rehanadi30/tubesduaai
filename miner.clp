@@ -77,17 +77,17 @@
 )
 
 ; Testing
-(deffacts init
-   (kotak-tertutup (location-x 0) (location-y 0))
-   (kotak-terbuka (location-x 0) (location-y 1) (contain 2))
-   (kotak-tertutup (location-x 0) (location-y 2))
-   (kotak-tertutup (location-x 1) (location-y 0))
-   (kotak-terbuka (location-x 1) (location-y 1) (contain 2))
-   (kotak-tertutup (location-x 1) (location-y 2))
-   (kotak-tertutup (location-x 2) (location-y 0))
-   (kotak-tertutup (location-x 2) (location-y 1))
-   (kotak-tertutup (location-x 2) (location-y 2))
-)
+;(deffacts init
+;   (kotak-tertutup (location-x 0) (location-y 0))
+;   (kotak-terbuka (location-x 0) (location-y 1) (contain 2))
+;   (kotak-tertutup (location-x 0) (location-y 2))
+;   (kotak-tertutup (location-x 1) (location-y 0))
+;   (kotak-terbuka (location-x 1) (location-y 1) (contain 2))
+;   (kotak-tertutup (location-x 1) (location-y 2))
+;   (kotak-tertutup (location-x 2) (location-y 0))
+;   (kotak-tertutup (location-x 2) (location-y 1))
+;   (kotak-tertutup (location-x 2) (location-y 2))
+;)
 
 
 ; --- Utils ---
