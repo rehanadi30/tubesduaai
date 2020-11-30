@@ -203,11 +203,12 @@ def mainAI():
                 clipsIO.addKotak(i, j, -1)
     clipsIO.bukaKotak(0,0)
     clipsIO.start()
+    print(clipsIO.getKotakTerbuka(ukuranPapan))
 
 
 if __name__ == '__main__':
     try:
-        main()
+        mainAI()
         #clipsIO.addKotak(0,0,3)
         #clipsIO.bukaKotak(0,0)
         #clipsIO.start()
