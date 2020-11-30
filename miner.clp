@@ -118,7 +118,7 @@
 (defrule akan-buka
    (declare (salience 30))
    (akan-buka-kotak (location-x ?x) (location-y ?y))
-   ?s <- (kotak-tertutup (location-x ?x) (location ?y))
+   ?s <- (kotak-tertutup (location-x ?x) (location-y ?y))
    =>
    (retract ?s)
 )
