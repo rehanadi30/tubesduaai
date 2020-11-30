@@ -185,7 +185,6 @@
    (bind ?loc (- ?x2 ?x1))
    (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-x (+ ?x2 1)) (<= (abs (- ?s:location-y ?y)) 1))
       (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
-      (retract ?s)
    )
 )
 
@@ -200,7 +199,6 @@
    (bind ?loc (- ?x2 ?x1))
    (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-x (- ?x2 1)) (<= (abs (- ?s:location-y ?y)) 1))
       (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
-      (retract ?s)
    )
 )
 
@@ -214,7 +212,6 @@
    (bind ?loc (- ?y2 ?y1))
    (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-y (+ ?y2 1)) (<= (abs (- ?s:location-x ?x)) 1))
       (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
-      (retract ?s)
    )
 )
 
@@ -228,7 +225,6 @@
    (bind ?loc (- ?y2 ?y1))
    (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-y (- ?y2 1)) (<= (abs (- ?s:location-x ?x)) 1))
       (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
-      (retract ?s)
    )
 )
 
@@ -302,7 +298,6 @@
    =>
    (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-x ?x1) (<= (abs (- ?s:location-y ?y)) 1)) 
       (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
-      (retract ?s)
    )
 )
 
@@ -317,7 +312,6 @@
    =>
    (do-for-all-facts ((?s kotak-tertutup)) (and (<= (abs (- ?s:location-x ?x)) 1) (= ?s:location-y ?y1)) 
       (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
-      (retract ?s)
    )
 )
 
@@ -333,7 +327,6 @@
    (bind ?loc (- ?x2 ?x1))
    (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-x (+ ?x2 1)) (<= (abs (- ?s:location-y ?y)) 1))
       (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
-      (retract ?s)
    )
 )
 
@@ -348,7 +341,6 @@
    (bind ?loc (- ?x2 ?x1))
    (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-x (- ?x2 1)) (<= (abs (- ?s:location-y ?y)) 1))
       (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
-      (retract ?s)
    )
 )
 
@@ -363,7 +355,6 @@
    (bind ?loc (- ?y2 ?y1))
    (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-y (+ ?y2 1)) (<= (abs (- ?s:location-x ?x)) 1))
       (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
-      (retract ?s)
    )
 )
 
@@ -377,6 +368,5 @@
    (bind ?loc (- ?y2 ?y1))
    (do-for-all-facts ((?s kotak-tertutup)) (and (= ?s:location-y (- ?y2 1)) (<= (abs (- ?s:location-x ?x)) 1))
       (assert (akan-buka-kotak (location-x ?s:location-x) (location-y ?s:location-y)))
-      (retract ?s)
    )
 )
