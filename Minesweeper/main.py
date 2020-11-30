@@ -56,37 +56,37 @@ def papanUser(size):
     papanVisible = [['-' for row in range(size)] for column in range(size)]
     return papanVisible
 
-def renderNonGui(map):
-    for row in map:
+def renderNonGui(papan):
+    for row in papan:
         print(" ".join(str(cell) for cell in row) + "\n")
 
 def bersihkanKosong(papanUser, papanAsli, x, y, size):
     #print("Masuk Fungsi")
     if(papanAsli[y][x] == 0):
         papanUser[y][x] = papanAsli[y][x]
-        if (y >=0 and y <= size-2) and (x >= 0 and x <= size-1):
-            if papanAsli[x][y+1] == 0:
+        if ((y >=0 and y <= size-2) and (x >= 0 and x <= size-1)):
+            if (papanAsli[x][y+1] == 0):
                 bersihkanKosong(papanUser, papanAsli, x, y+1, size)
-        if (y >=1 and y <= size-1) and (x >= 0 and x <= size-1):
-            if papanAsli[x][y-1] == 0:
+        if ((y >=1 and y <= size-1) and (x >= 0 and x <= size-1)):
+            if (papanAsli[x][y-1] == 0):
                 bersihkanKosong(papanUser, papanAsli, x,y-1, size)
-        if (y >= 1 and y <= size-1) and (x >= 1 and x <= size-1):
-            if papanAsli[x-1][y-1] == 0:
+        if ((y >= 1 and y <= size-1) and (x >= 1 and x <= size-1)):
+            if (papanAsli[x-1][y-1] == 0):
                 bersihkanKosong(papanUser, papanAsli, x-1,y-1, size)
-        if (y >= 0 and y <= size-2) and (x >= 1 and x <= size-1):
-            if papanAsli[x-1][y+1] == 0:
+        if ((y >= 0 and y <= size-2) and (x >= 1 and x <= size-1)):
+            if (papanAsli[x-1][y+1] == 0):
                 bersihkanKosong(papanUser, papanAsli, x-1,y+1, size)
-        if (y >= 0 and y <= size-1) and (x >= 1 and x <= size-1):
-            if papanAsli[x-1][y] == 0:
+        if ((y >= 0 and y <= size-1) and (x >= 1 and x <= size-1)):
+            if (papanAsli[x-1][y] == 0):
                 bersihkanKosong(papanUser, papanAsli, x-1,y, size)
-        if (y >=0 and y <= size-2) and (x >= 0 and x <= size-2):
-            if papanAsli[x+1][y+1] == 0:
+        if ((y >=0 and y <= size-2) and (x >= 0 and x <= size-2)):
+            if (papanAsli[x+1][y+1] == 0):
                 bersihkanKosong(papanUser, papanAsli, x+1,y+1, size)
-        if (y >= 1 and y <= size-1) and (x >= 0 and x <= size-2):
-            if papanAsli[x+1][y-1] == 0:
+        if ((y >= 1 and y <= size-1) and (x >= 0 and x <= size-2)):
+            if (papanAsli[x+1][y-1] == 0):
                 bersihkanKosong(papanUser, papanAsli, x+1,y-1, size)
-        if (y >= 0 and y <= size-1) and (x >= 0 and x <= size-2):
-            if papanAsli[x+1][y] == 0:
+        if ((y >= 0 and y <= size-1) and (x >= 0 and x <= size-2)):
+            if (papanAsli[x+1][y] == 0):
                 bersihkanKosong(papanUser, papanAsli, x+1,y, size)       
     
 
@@ -166,6 +166,5 @@ if __name__ == '__main__':
 """
 TO DO LISTS:
 1. GUI!!
-2. Kotak masih bisa bernilai lebih dari 4
 4. IsWon nya salah
 """
