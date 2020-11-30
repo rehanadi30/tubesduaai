@@ -174,6 +174,36 @@ def main():
                 break
                 
 
+def mainAI():
+    #KONSTANTA
+    arrBomX = []
+    arrBomY = []
+
+    #ALGORITMA
+    f = open("input.txt","r")
+    line = f.readline()
+    ukuranPapan = int(line)
+    print("Ukuran Papan = " + str(ukuranPapan))
+    line = f.readline()
+    jumlahBom = int(line)
+
+    for i in range(jumlahBom):
+        line = f.readline()
+        bomX, bomY = tuple(map(int,line.split(',')))
+        arrBomX.append(bomX)
+        arrBomY.append(bomY)
+
+    papanReal = papanMinesweeper(ukuranPapan, jumlahBom, arrBomX, arrBomY)
+    papanVisibleUpdated = [[False for i in range(ukuranPapan)] for j in range(ukuranPapan)]
+    for i in range(ukuranPapan):
+        for j in range(ukuranPapan):
+            if (papanReal[j][i]!='X'):
+                clipsIO.addKotak(i, j, papanReal[j][i])
+            else:
+                clipsIO.addKotak(i, j, -1)
+    clipsIO.bukaKotak(0,0)
+    clipsIO.start()
+
 
 if __name__ == '__main__':
     try:
