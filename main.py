@@ -2,6 +2,7 @@
 import pygame
 import random as acak
 import sys
+import clipsIO
 
 sys.setrecursionlimit(1500)
 
@@ -62,6 +63,7 @@ def renderNonGui(papan):
 
 def bersihkanKosong(papanUser, papanAsli, x, y, size):
     #print("Masuk Fungsi")
+
     if(papanAsli[y][x] == 0):
         papanUser[y][x] = papanAsli[y][x]
         if ((y >=0 and y <= size-2) and (x >= 0 and x <= size-1)):
@@ -88,13 +90,18 @@ def bersihkanKosong(papanUser, papanAsli, x, y, size):
         if ((y >= 0 and y <= size-1) and (x >= 0 and x <= size-2)):
             if (papanAsli[x+1][y] == 0):
                 bersihkanKosong(papanUser, papanAsli, x+1,y, size)       
-    
 
-def isWon(papan):
-    for row in papan:
-        for cell in row:
-            if (cell == '-'): #Masih ada yang belum kebuka
-                return False
+def isWon(papanAsli,size):
+    papan = clipsIO.getKotakTerbuka(size)
+    for row in range(size):
+        for cell in range(size):
+            isbom = papanAsli[row][cell]=='X'
+            if (not papan[row][cell]): #Masih ada yang belum kebuka
+                if (not isbom):
+                    return False
+            else:
+                if (isbom):
+                    return False
     return True
 
 def gameStatus(score):
@@ -159,7 +166,10 @@ def main():
 
 if __name__ == '__main__':
     try:
-        main()
+        #main()
+        clipsIO.addKotak(0,0,3)
+        clipsIO.bukaKotak(0,0)
+        clipsIO.start()
     except KeyboardInterrupt:
         print("Game Over")
 
