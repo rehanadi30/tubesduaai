@@ -61,6 +61,16 @@ def renderNonGui(papan):
     for row in papan:
         print(" ".join(str(cell) for cell in row) + "\n")
 
+def renderNonGuiBool(papanAsli, papanUser, size):
+    for i in range (size):
+        for j in range (size):
+            if(papanUser[i][j]):
+                print(papanAsli[j][i], end=" ")
+                #print(" ".join(str(cell) for cell in row) + "\n")
+            else:
+                print("-", end=" ")
+        print(" ")
+
 def bersihkanKosong(papanUser, papanAsli, x, y, size):
     #print("Masuk Fungsi")
 
@@ -204,6 +214,8 @@ def mainAI():
     clipsIO.bukaKotak(0,0)
     clipsIO.start()
     print(clipsIO.getKotakTerbuka(ukuranPapan))
+    renderNonGuiBool(papanReal, clipsIO.getKotakTerbuka(ukuranPapan), ukuranPapan)
+
 
 
 if __name__ == '__main__':
